@@ -1,0 +1,33 @@
+# Foundry & smart contract artifacts
+cache/
+out/
+broadcast/
+
+# Node / JS / NPM
+node_modules/
+
+# Python artifacts
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+
+# Environment files & secrets
+.env
+.env.*
+!.env.example
+
+# Test outputs & logs
+*.log
+/tmp/
+
+# OS metadata
+.DS_Store
+Thumbs.db
+
+# Agents
+.agents/

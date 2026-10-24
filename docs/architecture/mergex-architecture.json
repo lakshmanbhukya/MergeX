@@ -1,0 +1,171 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "MergeX System Architecture",
+    "output": "mergex-architecture.html",
+    "quality_profile": "showcase",
+    "views": [
+      {
+        "id": "bounty-setup",
+        "label": "Setup & Funding",
+        "focus": ["sponsor", "contract", "vault"],
+        "note": "Host initializes bounty terms and locks ETH prize pool in escrow."
+      },
+      {
+        "id": "contributor-flow",
+        "label": "Developer Registration & PRs",
+        "focus": ["developer", "github", "contract"],
+        "note": "Developers register GitHub identity and deliver open-source PRs."
+      },
+      {
+        "id": "oracle-settlement",
+        "label": "Oracle Detection & Payout",
+        "focus": ["github", "oracle", "contract", "winner_wallet"],
+        "note": "Oracle verifies milestone completion and settles atomic payout."
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": "sponsor",
+      "type": "external",
+      "label": "Sponsor / Host",
+      "sublabel": "Bounty Creator",
+      "pos": [80, 110],
+      "size": [150, 60]
+    },
+    {
+      "id": "contract",
+      "type": "security",
+      "label": "MergeXHub Contract",
+      "sublabel": "Escrow & State Machine",
+      "tag": "Solidity 0.8.24",
+      "pos": [410, 110],
+      "size": [170, 64]
+    },
+    {
+      "id": "vault",
+      "type": "database",
+      "label": "Prize Pool Vault",
+      "sublabel": "Locked Escrowed ETH",
+      "pos": [740, 110],
+      "size": [150, 60]
+    },
+    {
+      "id": "developer",
+      "type": "external",
+      "label": "Developer",
+      "sublabel": "OSS Contributor",
+      "pos": [80, 260],
+      "size": [150, 60]
+    },
+    {
+      "id": "winner_wallet",
+      "type": "external",
+      "label": "Winner Wallet",
+      "sublabel": "Atomic Payout Target",
+      "pos": [740, 260],
+      "size": [150, 60]
+    },
+    {
+      "id": "github",
+      "type": "external",
+      "brand": "github",
+      "label": "GitHub Repo",
+      "sublabel": "PRs & Release Tags",
+      "pos": [80, 410],
+      "size": [150, 60]
+    },
+    {
+      "id": "oracle",
+      "type": "backend",
+      "brand": "python",
+      "label": "Oracle Daemon",
+      "sublabel": "REST Poller & Signer",
+      "pos": [410, 410],
+      "size": [170, 60]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "EVM Smart Contract Escrow",
+      "wraps": ["contract", "vault"]
+    }
+  ],
+  "connections": [
+    {
+      "id": "sponsor-to-contract",
+      "from": "sponsor",
+      "to": "contract",
+      "label": "fund prize pool",
+      "variant": "emphasis"
+    },
+    {
+      "id": "developer-to-contract",
+      "from": "developer",
+      "to": "contract",
+      "label": "register handle"
+    },
+    {
+      "id": "developer-to-github",
+      "from": "developer",
+      "to": "github",
+      "label": "submit PRs & code",
+      "labelDy": 24
+    },
+    {
+      "id": "github-to-oracle",
+      "from": "github",
+      "to": "oracle",
+      "label": "milestone release"
+    },
+    {
+      "id": "oracle-to-contract",
+      "from": "oracle",
+      "to": "contract",
+      "label": "settle winner Tx",
+      "variant": "security"
+    },
+    {
+      "id": "contract-to-vault",
+      "from": "contract",
+      "to": "vault",
+      "label": "lock ETH"
+    },
+    {
+      "id": "contract-to-winner",
+      "from": "contract",
+      "to": "winner_wallet",
+      "label": "atomic payout",
+      "variant": "emphasis"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Bounty Funding & Registration",
+      "items": [
+        "Sponsor deposits ETH into time-locked escrow vault",
+        "Developers register GitHub handles linked to EVM wallets"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Milestone & Relayer Verification",
+      "items": [
+        "Python oracle daemon polls GitHub API for releases and merged PRs",
+        "Evaluates milestone criteria and signs settlement transaction"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Trustless Settlement",
+      "items": [
+        "MergeXHub verifies winner handle against registered mappings",
+        "Executes non-reentrant atomic payout or deadline refund"
+      ]
+    }
+  ]
+}
