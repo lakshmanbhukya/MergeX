@@ -17,7 +17,7 @@ A decentralized bounty escrow and tournament system for open-source software. Me
 ## System Architecture
 
 ```mermaid
-flowchart TD
+flowchart LR
     subgraph GitHub["GitHub Platform"]
         DEV["Developer<br/>(Tags / Releases / PRs)"] -->|Publishes Milestone Release| GH_API["GitHub REST API<br/>(/releases/latest)"]
     end
