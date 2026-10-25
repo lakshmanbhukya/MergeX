@@ -28,11 +28,11 @@ flowchart TD
     end
 
     subgraph OnChain["MergeX On-Chain Escrow (EVM)"]
-        SPONSOR["Sponsor / Host"] -->|1. fundPrizePool(ETH)| HUB["MergeXHub Vault<br/>(src/MergeXHub.sol)"]
-        DEV_WALLET["Winner Wallet"] -->|0. registerDeveloper(handle)| HUB
-        ORACLE -->|2. settleMilestoneWinner(author)<br/>or finalizeWeightTournament()| HUB
-        HUB -->|3. Atomic ETH Payout| DEV_WALLET
-        HUB -.->|Refund if deadline reached without winner| SPONSOR
+        SPONSOR["Sponsor / Host"] -->|"1. fundPrizePool(ETH)"| HUB["MergeXHub Vault<br/>(src/MergeXHub.sol)"]
+        DEV_WALLET["Winner Wallet"] -->|"0. registerDeveloper(handle)"| HUB
+        ORACLE -->|"2. settleMilestoneWinner(author) or finalizeWeightTournament()"| HUB
+        HUB -->|"3. Atomic ETH Payout"| DEV_WALLET
+        HUB -.->|"Refund if deadline reached without winner"| SPONSOR
     end
 ```
 
