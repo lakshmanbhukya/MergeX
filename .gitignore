@@ -30,4 +30,8 @@ venv/
 Thumbs.db
 
 # Agents
-.agents/
+.agents/ 
+
+# learning 
+helper.md
+reference.md

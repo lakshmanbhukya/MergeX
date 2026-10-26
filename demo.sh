@@ -3,6 +3,7 @@
 # Usage: bash demo.sh
 # Requires: forge, anvil, cast (Foundry), python3, web3.py, requests
 set -euo pipefail
+export FOUNDRY_DISABLE_NIGHTLY_WARNING=1
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$SCRIPT_DIR"

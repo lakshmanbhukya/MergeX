@@ -8,3 +8,6 @@ optimizer_runs = 200
 remappings = [
     "@openzeppelin/=lib/openzeppelin-contracts/",
 ]
+
+[lint]
+exclude_lints = ["block-timestamp"]
